@@ -74,7 +74,7 @@ cp .env-sample .env
 # Edit files in knowledge-base/ folder
 
 # Run setup to create your agent in Rippletide
-python src/setup.py
+uv run src/setup.py
 # This will output an Agent ID - add it to your .env file
 
 # Start the server
@@ -140,7 +140,7 @@ See the [knowledge-base/README.md](knowledge-base/README.md) for detailed inform
 The setup script will create your agent in Rippletide with all the configurations from the knowledge-base folder:
 
 ```bash
-python src/setup.py
+uv run src/setup.py
 ```
 
 The script will:
