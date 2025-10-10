@@ -96,8 +96,6 @@ async def main():
     # Load all configuration files
     tags_config = load_config_file(kb_dir / "tags.json")
     qanda_config = load_config_file(kb_dir / "qanda.json")
-    actions_config = load_config_file(kb_dir / "actions.json")
-    guardrails_config = load_config_file(kb_dir / "guardrails.json")
     state_predicate_config = load_config_file(kb_dir / "state_predicate.json")
 
     log_success("All configuration files loaded successfully")
@@ -228,61 +226,8 @@ Guidelines:
 
         log_success(f"Knowledge base setup complete! Added {qanda_count} Q&A pairs")
 
-        # Step 4: Create Guardrails
-        log_header(f"🛡️  Step 4: Creating Guardrails ({len(guardrails_config)} rules)")
-
-        guardrail_count = 0
-        for guardrail in guardrails_config:
-            instruction = guardrail["instruction"]
-            log_info(f"Adding guardrail: {instruction[:60]}...")
-
-            try:
-                response = await client.post(
-                    f"{BASE_URL}/guardrail",
-                    headers=headers,
-                    json={
-                        "agent_id": agent_id,
-                        "type": guardrail["type"],
-                        "instruction": instruction
-                    }
-                )
-                response.raise_for_status()
-                guardrail_count += 1
-                log_success("✓ Added")
-            except (httpx.HTTPStatusError, httpx.RequestError) as e:
-                log_error(f"Failed to create guardrail: {e}")
-
-        log_success(f"Guardrails setup complete! Added {guardrail_count} rules")
-
-        # Step 5: Create Actions
-        log_header(f"⚡ Step 5: Creating Actions ({len(actions_config)} actions)")
-
-        action_count = 0
-        for action in actions_config:
-            action_name = action["name"]
-            log_info(f"Creating action: {action_name}")
-
-            try:
-                response = await client.post(
-                    f"{BASE_URL}/action",
-                    headers=headers,
-                    json={
-                        "agent_id": agent_id,
-                        "name": action_name,
-                        "description": action["description"],
-                        "what_to_do": action["what_to_do"]
-                    }
-                )
-                response.raise_for_status()
-                action_count += 1
-                log_success(f"✓ {action_name}")
-            except (httpx.HTTPStatusError, httpx.RequestError) as e:
-                log_error(f"Failed to create action '{action_name}': {e}")
-
-        log_success(f"Actions setup complete! Created {action_count} actions")
-
-        # Step 6: Setup State Predicate
-        log_header("🔀 Step 6: Configuring Conversation Flow (State Predicate)")
+        # Step 4: Setup State Predicate
+        log_header("🔀 Step 4: Configuring Conversation Flow (State Predicate)")
 
         log_info("Setting up conversation flow and decision tree...")
 
@@ -309,8 +254,6 @@ Guidelines:
     print(f"  • Agent ID: {Colors.BOLD}{agent_id}{Colors.ENDC}")
     print(f"  • Tags: {len(tag_ids)}")
     print(f"  • Q&A Pairs: {qanda_count}")
-    print(f"  • Guardrails: {guardrail_count}")
-    print(f"  • Actions: {action_count}")
     print(f"  • State Flow: Configured\n")
 
     print(f"{Colors.WARNING}{Colors.BOLD}Next Steps:{Colors.ENDC}")
