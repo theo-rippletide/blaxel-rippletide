@@ -129,8 +129,6 @@ The `knowledge-base/` folder contains sample customer support data. Customize th
 
 - **tags.json** - Categories for organizing your knowledge (e.g., "shipping_delivery", "returns_refunds")
 - **qanda.json** - Question-answer pairs that form your agent's knowledge base
-- **actions.json** - Actions your agent can perform (e.g., check_order_status, initiate_return)
-- **guardrails.json** - Rules and constraints for your agent's behavior
 - **state_predicate.json** - Conversation flow and decision tree
 
 See the [knowledge-base/README.md](knowledge-base/README.md) for detailed information on customizing each file.
@@ -147,10 +145,8 @@ The script will:
 1. ✅ Create a customer support agent in Rippletide
 2. ✅ Set up all tags from tags.json
 3. ✅ Add Q&A pairs from qanda.json (with tag associations)
-4. ✅ Configure guardrails from guardrails.json
-5. ✅ Create actions from actions.json
-6. ✅ Set up conversation flow from state_predicate.json
-7. ✅ Provide you with an Agent ID
+4. ✅ Set up conversation flow from state_predicate.json
+5. ✅ Provide you with an Agent ID
 
 ### Step 4: Add Agent ID to Environment
 
@@ -231,8 +227,6 @@ This command uses your code and the configuration files under the `.blaxel` dire
 - **knowledge-base/** - Customer support knowledge base configuration
   - **tags.json** - Category tags for organizing knowledge
   - **qanda.json** - Question-answer pairs for the knowledge base
-  - **actions.json** - Agent actions (API calls, tools)
-  - **guardrails.json** - Behavioral rules and constraints
   - **state_predicate.json** - Conversation flow configuration
   - **README.md** - Knowledge base customization guide
 - **pyproject.toml** - UV package manager configuration with dependencies

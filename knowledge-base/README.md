@@ -32,34 +32,6 @@ Contains question-answer pairs that form your agent's knowledge base. Each entry
 }
 ```
 
-### `actions.json`
-Defines actions your agent can perform (like calling external tools or APIs). Each action has:
-- `name`: Unique identifier for the action
-- `description`: What this action does
-- `what_to_do`: Detailed instructions for executing the action
-
-**Example:**
-```json
-{
-  "name": "check_order_status",
-  "description": "Check the current status of a customer's order",
-  "what_to_do": "Retrieve order information including current status, tracking number..."
-}
-```
-
-### `guardrails.json`
-Defines rules and constraints for your agent's behavior. Each guardrail has:
-- `type`: Usually "action" for behavioral rules
-- `instruction`: The rule or constraint
-
-**Example:**
-```json
-{
-  "type": "action",
-  "instruction": "Always maintain a professional, friendly, and empathetic tone"
-}
-```
-
 ### `state_predicate.json`
 Defines the conversation flow and decision tree for your agent. This determines how the agent navigates different customer scenarios.
 
